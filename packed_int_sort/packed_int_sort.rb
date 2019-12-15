@@ -36,7 +36,7 @@ end
 def sort_rank_array
   @players.sort_by do |p|
     [p.rating, p.team_rating, p.conf_rating, p.id]
-  end.reverse
+  end.reverse!
 end
 
 def sort_packed_int
@@ -48,8 +48,18 @@ def sort_basic
     r = a.rating <=> b.rating
     r = a.team_rating <=> b.team_rating if r == 0
     r = a.conf_rating <=> b.conf_rating if r == 0
-    r = a.id<=> b.id if r == 0
+    r = a.id <=> b.id if r == 0
     r
+  end.reverse!
+end
+
+def sort_basic_one_step
+  @players.sort do |a, b|
+    r = a.rating <=> b.rating
+    r = a.team_rating <=> b.team_rating if r == 0
+    r = a.conf_rating <=> b.conf_rating if r == 0
+    r = a.id <=> b.id if r == 0
+    r < 0 ? 1 : (r > 0 ? -1 : 0)
   end
 end
 
@@ -60,7 +70,7 @@ def sort_math
     d = a.conf_rating - b.conf_rating if d == 0
     d = a.id - b.id if d == 0
     d < 0 ? -1 : (d > 0 ? 1 : 0)
-  end
+  end.reverse!
 end
 
 Benchmark.ips do |x|
@@ -70,6 +80,7 @@ Benchmark.ips do |x|
   x.report("sort_rank_array") { sort_rank_array }
   x.report("sort_packed_int") { sort_packed_int }
   x.report("sort_basic") { sort_basic }
+  x.report("sort_basic_one_step") { sort_basic_one_step }
   x.report("sort_math") { sort_math }
 
   x.compare!
