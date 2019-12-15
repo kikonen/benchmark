@@ -53,13 +53,24 @@ def sort_basic
   end
 end
 
+def sort_math
+  @players.sort do |a, b|
+    d = a.rating - b.rating
+    d = a.team_rating - b.team_rating if d == 0
+    d = a.conf_rating - b.conf_rating if d == 0
+    d = a.id - b.id if d == 0
+    d < 0 ? -1 : (d > 0 ? 1 : 0)
+  end
+end
+
 Benchmark.ips do |x|
-  x.config(time: 10, warmup: 2)
+  x.config(time: 5, warmup: 2)
 
   x.report("sort_naively") { sort_naively }
   x.report("sort_rank_array") { sort_rank_array }
   x.report("sort_packed_int") { sort_packed_int }
   x.report("sort_basic") { sort_basic }
+  x.report("sort_math") { sort_math }
 
   x.compare!
 end

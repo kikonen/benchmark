@@ -1,41 +1,50 @@
-## NORMAL
+https://towardsdatascience.com/bitwise-sorting-in-ruby-47f27bbd9ebf
+
+
+## ruby packed_int_sort.rb
 ```
-$ ruby packed_int_sort.rb
 Warming up --------------------------------------
         sort_naively     1.000  i/100ms
      sort_rank_array     1.000  i/100ms
      sort_packed_int     1.000  i/100ms
           sort_basic     1.000  i/100ms
+           sort_math     1.000  i/100ms
 Calculating -------------------------------------
-        sort_naively      0.232  (± 0.0%) i/s -      3.000  in  12.927605s
-     sort_rank_array      0.099  (± 0.0%) i/s -      1.000  in  10.146673s
-     sort_packed_int      1.510  (± 0.0%) i/s -     16.000  in  10.610212s
-          sort_basic      0.127  (± 0.0%) i/s -      2.000  in  15.748589s
+        sort_naively      0.215  (± 0.0%) i/s -      2.000  in   9.315806s
+     sort_rank_array      0.090  (± 0.0%) i/s -      1.000  in  11.126544s
+     sort_packed_int      1.448  (± 0.0%) i/s -      8.000  in   5.536280s
+          sort_basic      0.121  (± 0.0%) i/s -      1.000  in   8.252476s
+           sort_math      0.137  (± 0.0%) i/s -      1.000  in   7.308781s
 
 Comparison:
-     sort_packed_int:        1.5 i/s
-        sort_naively:        0.2 i/s - 6.50x  slower
-          sort_basic:        0.1 i/s - 11.89x  slower
-     sort_rank_array:        0.1 i/s - 15.33x  slower
+     sort_packed_int:        1.4 i/s
+        sort_naively:        0.2 i/s - 6.72x  slower
+           sort_math:        0.1 i/s - 10.58x  slower
+          sort_basic:        0.1 i/s - 11.95x  slower
+     sort_rank_array:        0.1 i/s - 16.11x  slower
+
 ```
 
-## JIT
+## ruby --jit packed_int_sort.rb
 ```
-$ ruby --jit packed_int_sort.rb
 Warming up --------------------------------------
         sort_naively     1.000  i/100ms
      sort_rank_array     1.000  i/100ms
      sort_packed_int     1.000  i/100ms
           sort_basic     1.000  i/100ms
+           sort_math     1.000  i/100ms
 Calculating -------------------------------------
-        sort_naively      0.177  (± 0.0%) i/s -      2.000  in  11.283975s
-     sort_rank_array      0.091  (± 0.0%) i/s -      1.000  in  11.024847s
-     sort_packed_int      1.493  (± 0.0%) i/s -     15.000  in  10.052804s
-          sort_basic      0.173  (± 0.0%) i/s -      2.000  in  11.565000s
+        sort_naively      0.191  (± 0.0%) i/s -      1.000  in   5.231135s
+     sort_rank_array      0.089  (± 0.0%) i/s -      1.000  in  11.234174s
+     sort_packed_int      1.477  (± 0.0%) i/s -      8.000  in   5.420856s
+          sort_basic      0.170  (± 0.0%) i/s -      1.000  in   5.894804s
+           sort_math      0.197  (± 0.0%) i/s -      1.000  in   5.068088s
 
 Comparison:
      sort_packed_int:        1.5 i/s
-        sort_naively:        0.2 i/s - 8.42x  slower
-          sort_basic:        0.2 i/s - 8.63x  slower
-     sort_rank_array:        0.1 i/s - 16.46x  slower
+           sort_math:        0.2 i/s - 7.48x  slower
+        sort_naively:        0.2 i/s - 7.73x  slower
+          sort_basic:        0.2 i/s - 8.71x  slower
+     sort_rank_array:        0.1 i/s - 16.59x  slower
+
 ```
