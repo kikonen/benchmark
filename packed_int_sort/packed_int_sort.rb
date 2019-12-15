@@ -40,9 +40,6 @@ def rank_players(players)
   end
 end
 
-rank_players(players_class)
-rank_players(players_struct)
-
 # I want to sort by player rating descending,
 # then team rating descending,
 # then conference rating descending,
@@ -66,6 +63,7 @@ def sort_rank_array(players)
 end
 
 def sort_packed_int(players)
+  rank_players(players)
   players.sort_by(&:bit_rank)
 end
 
